@@ -8,7 +8,6 @@
       :aria-label="label"
       role="dialog"
       :class="modalClass"
-      @click="close"
     >
       <div class="modal__wrap">
         <div class="modal__body" @click.stop>

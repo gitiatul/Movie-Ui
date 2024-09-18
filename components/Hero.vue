@@ -7,7 +7,7 @@
             v-if="trailer"
             :class="$style.play"
             type="button"
-            aria-label="Play Trailer"
+            aria-label="Play Now"
             @click="openModal"
           >
             <!-- eslint-disable-next-line -->
@@ -108,7 +108,7 @@
                 >
                   <path d="M3 22v-20l18 10-18 10z" /></svg
               ></span>
-              <span class="txt">Watch Trailer</span>
+              <span class="txt">Watch Now</span>
             </button>
           </div>
         </transition>
@@ -158,6 +158,7 @@ export default {
   },
   computed: {
     type() {
+      this.$store.commit("search/setItem", this.item);
       return this.item.title ? "movie" : "tv";
     }
   },

@@ -1,22 +1,26 @@
 export const state = () => ({
   searchOpen: false,
-  fromPage: '/',
+  fromPage: "/",
+  item: {}
 });
 
 export const mutations = {
-  toggleSearch (state) {
+  toggleSearch(state) {
     state.searchOpen = !state.searchOpen;
   },
 
-  openSearch (state) {
+  openSearch(state) {
     state.searchOpen = true;
   },
 
-  closeSearch (state) {
+  closeSearch(state) {
     state.searchOpen = false;
   },
 
-  setFromPage (state, page) {
+  setFromPage(state, page) {
     state.fromPage = page;
   },
+  setItem(state, item) {
+    state.item = item;
+  }
 };

@@ -40,9 +40,22 @@
           <div :class="`modal__${type}`">
             <iframe
               v-if="
+                type === 'iframe' && item.hasOwnProperty('number_of_episodes')
+              "
+              :src="
+                `https://multiembed.mov/?video_id=${
+                  item.external_ids.imdb_id
+                }&s=${episode.season_number}&e=${episode.episode_number}`
+              "
+              frameborder="0"
+              allow="autoplay; encrypted-media"
+              allowfullscreen
+            />
+            <iframe
+              v-if="
                 type === 'iframe' &&
-                  activeItem &&
-                  item.hasOwnProperty('number_of_episodes')
+                  item.hasOwnProperty('number_of_episodes') &&
+                  !episode.hasOwnProperty('episode_number')
               "
               :src="
                 `https://multiembed.mov/?video_id=${
@@ -55,9 +68,7 @@
             />
             <iframe
               v-if="
-                type === 'iframe' &&
-                  activeItem &&
-                  !item.hasOwnProperty('number_of_episodes')
+                type === 'iframe' && !item.hasOwnProperty('number_of_episodes')
               "
               :src="
                 `https://multiembed.mov/?video_id=${item.external_ids.imdb_id}`
@@ -187,6 +198,13 @@ export default {
     item: {
       type: Object,
       required: true,
+      default: function() {
+        return {};
+      }
+    },
+    episode: {
+      type: Object,
+      required: false,
       default: function() {
         return {};
       }

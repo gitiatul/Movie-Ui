@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.item">
-    <div :class="$style.image">
+    <div :class="$style.image" type="button" @click="openModal" >
       <img
         v-if="poster"
         v-lazyload="poster"
@@ -26,20 +26,36 @@
       :class="$style.aired">
       {{ episode.air_date | fullDate }}
     </div>
+    <Modal
+      v-if="modalVisible"
+      type="iframe"
+      :item="item"
+      :episode="episode"
+      @close="closeModal"
+    />
   </div>
 </template>
 
 <script>
 import { apiImgUrl } from '~/api';
+import { mapState } from 'vuex';
+import Modal from "~/components/Modal";
 
 export default {
+  components: {
+    Modal
+  },
   props: {
     episode: {
       type: Object,
       required: true,
     },
   },
-
+  data() {
+    return {
+      modalVisible: false
+    };
+  },
   computed: {
     poster () {
       if (this.episode.still_path) {
@@ -48,7 +64,19 @@ export default {
         return null;
       }
     },
+    ...mapState('search', [
+      'item',
+    ]),
   },
+  methods: {
+    openModal() {
+      this.modalVisible = true;
+    },
+
+    closeModal() {
+      this.modalVisible = false;
+    }
+  }
 };
 </script>
 

@@ -1,24 +1,48 @@
-# vue_movie_project
 
-## Project setup
-```
-npm install
+# Geekait Movies (This codebase is 6yrs old) ⚠️
+Progressive web app featuring movies and tv shows from The Movie Database (TMDb) API. Built using Vue.js and Nuxt.js.
+
+
+
+
+## Demo
+
+Live demo hosted on Netlify can be found at https://geekait.netlify.app/.
+
+Built as a side project to learn some new skills
+
+
+## Quick setup
+
+
+    Take a copy of .env.sample and re-name to .env
+    Get your TMDb API key
+    Get your YouTube API key (optional, used for video data)
+    Enter the details into the .env file
+    
+## Running
+
+Clone the project
+
+```bash
+  git clone https://github.com/aitmiloud/Geekait-PWA.git
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+Go to the project directory
+
+```bash
+  cd Geekait-PWA
 ```
 
-### Compiles and minifies for production
-```
-npm run build
+Install dependencies
+
+```bash
+  npm install
 ```
 
-### Lints and fixes files
-```
-npm run lint
+Start the server
+
+```bash
+  npm run start
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -24,11 +24,6 @@
         :number-of-seasons="item.number_of_seasons" />
     </template>
 
-    <template v-if="activeMenu === 'videos' && showVideos">
-      <Videos
-        :videos="item.videos.results" />
-    </template>
-
     <template v-if="activeMenu === 'photos' && showImages">
       <Images
         v-if="item.images.backdrops.length"
@@ -57,7 +52,6 @@ import TopNav from '~/components/global/TopNav';
 import Hero from '~/components/Hero';
 import MediaNav from '~/components/MediaNav';
 import TvInfo from '~/components/tv/TvInfo';
-import Videos from '~/components/Videos';
 import Images from '~/components/Images';
 import Credits from '~/components/Credits';
 import Episodes from '~/components/tv/Episodes';
@@ -69,7 +63,6 @@ export default {
     Hero,
     MediaNav,
     TvInfo,
-    Videos,
     Images,
     Credits,
     Episodes,
@@ -185,9 +178,6 @@ export default {
 
       // episodes
       if (this.showEpisodes) menu.push('Episodes');
-
-      // videos
-      if (this.showVideos) menu.push('Videos');
 
       // images
       if (this.showImages) menu.push('Photos');

@@ -19,11 +19,6 @@
         :people="item.credits.cast" />
     </template>
 
-    <template v-if="activeMenu === 'videos' && showVideos">
-      <Videos
-        :videos="item.videos.results" />
-    </template>
-
     <template v-if="activeMenu === 'photos' && showImages">
       <Images
         v-if="item.images.backdrops.length"
@@ -52,7 +47,6 @@ import TopNav from '~/components/global/TopNav';
 import Hero from '~/components/Hero';
 import MediaNav from '~/components/MediaNav';
 import MovieInfo from '~/components/movie/MovieInfo';
-import Videos from '~/components/Videos';
 import Images from '~/components/Images';
 import Credits from '~/components/Credits';
 import ListingCarousel from '~/components/ListingCarousel';
@@ -63,7 +57,6 @@ export default {
     Hero,
     MediaNav,
     MovieInfo,
-    Videos,
     Images,
     Credits,
     ListingCarousel,
@@ -168,9 +161,6 @@ export default {
 
       // overview
       menu.push('Overview');
-
-      // videos
-      if (this.showVideos) menu.push('Videos');
 
       // images
       if (this.showImages) menu.push('Photos');

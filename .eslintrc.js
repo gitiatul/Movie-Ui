@@ -12,14 +12,34 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    'vue/html-closing-bracket-newline': ['error', {
-      'singleline': 'never',
-      'multiline': 'never',
-    }],
-    'vue/no-v-html': ['never'],
-    'comma-dangle': ['error', 'always-multiline'],
-    'semi': ['error', 'always'],
-    'space-before-function-paren': ['error', 'always'],
-    'no-console': ['warn'],
+    // Disable 'html-closing-bracket-newline' error
+    'vue/html-closing-bracket-newline': 'off',
+
+    // Disable self-closing rule for void elements (e.g., <img/>)
+    'vue/html-self-closing': 'off',
+
+    // Disable 'max-attributes-per-line' rule
+    'vue/max-attributes-per-line': 'off',
+
+    // Disable indentation warnings
+    'vue/html-indent': 'off',
+
+    // Modify trailing comma rule (optional)
+    'comma-dangle': 'off',
+
+    // Modify semi rule to allow optional semicolons
+    'semi': 'off',
+
+    // Ignore space before function parentheses
+    'space-before-function-paren': 'off',
+
+    // Disable 'no-console' warning
+    'no-console': 'off',
+
+    // Add any other custom rules below if needed
+    'vue/no-v-html': 'off',
+
+    // Disable single quote enforcement
+    'quotes': 'off',
   }
 }

@@ -8,9 +8,34 @@
             :class="$style.play"
             type="button"
             aria-label="Play Trailer"
-            @click="openModal">
+            @click="openModal"
+          >
             <!-- eslint-disable-next-line -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="26.75" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.97 40.81L40.64 27.5 20.97 14.19v26.62z"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="55"
+              height="55"
+              viewBox="0 0 55 55"
+            >
+              <circle
+                cx="27.5"
+                cy="27.5"
+                r="26.75"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              />
+              <path
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M20.97 40.81L40.64 27.5 20.97 14.19v26.62z"
+              />
+            </svg>
           </button>
 
           <img
@@ -18,14 +43,13 @@
             v-lazyload="backdrop"
             class="lazyload"
             :class="$style.image"
-            :alt="name">
+            :alt="name"
+          />
         </div>
       </div>
 
       <div :class="$style.pane">
-        <transition
-          appear
-          name="hero">
+        <transition appear name="hero">
           <div>
             <h1 :class="$style.name">
               <template v-if="isSingle">
@@ -33,19 +57,17 @@
               </template>
 
               <template v-else>
-                <nuxt-link :to="{ name: `${type}-id`, params: { id: item.id } }">
+                <nuxt-link
+                  :to="{ name: `${type}-id`, params: { id: item.id } }"
+                >
                   {{ name }}
                 </nuxt-link>
               </template>
             </h1>
 
             <div :class="$style.meta">
-              <div
-                v-if="stars || item.vote_count"
-                :class="$style.rating">
-                <div
-                  v-if="stars"
-                  :class="$style.stars">
+              <div v-if="stars || item.vote_count" :class="$style.rating">
+                <div v-if="stars" :class="$style.stars">
                   <div :style="{ width: `${stars}%` }" />
                 </div>
 
@@ -55,7 +77,9 @@
               </div>
 
               <div :class="$style.info">
-                <span v-if="item.number_of_seasons">Season {{ item.number_of_seasons }}</span>
+                <span v-if="item.number_of_seasons"
+                  >Season {{ item.number_of_seasons }}</span
+                >
                 <span v-if="yearStart">{{ yearStart }}</span>
                 <span v-if="item.runtime">{{ item.runtime | runtime }}</span>
                 <span v-if="cert">Cert. {{ cert }}</span>
@@ -71,9 +95,19 @@
               class="button button--icon"
               :class="$style.trailer"
               type="button"
-              @click="openModal">
+              @click="openModal"
+            >
               <!-- eslint-disable-next-line -->
-              <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M3 22v-20l18 10-18 10z"/></svg></span>
+              <span class="icon"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="#fff"
+                >
+                  <path d="M3 22v-20l18 10-18 10z" /></svg
+              ></span>
               <span class="txt">Watch Trailer</span>
             </button>
           </div>
@@ -85,62 +119,63 @@
       v-if="modalVisible"
       :data="trailer"
       type="iframe"
-      @close="closeModal" />
+      :item="item"
+      @close="closeModal"
+    />
   </div>
 </template>
 
 <script>
-import { name, stars, yearStart, cert, backdrop, trailer } from '~/mixins/Details';
-import Modal from '~/components/Modal';
+import {
+  name,
+  stars,
+  yearStart,
+  cert,
+  backdrop,
+  trailer
+} from "~/mixins/Details";
+import Modal from "~/components/Modal";
 
 export default {
   components: {
-    Modal,
+    Modal
   },
 
-  mixins: [
-    name,
-    stars,
-    yearStart,
-    cert,
-    backdrop,
-    trailer,
-  ],
+  mixins: [name, stars, yearStart, cert, backdrop, trailer],
 
   props: {
     item: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
 
-  data () {
+  data() {
     return {
       isSingle: this.item.id === this.$route.params.id,
-      modalVisible: false,
+      modalVisible: false
     };
   },
-
   computed: {
-    type () {
-      return this.item.title ? 'movie' : 'tv';
-    },
+    type() {
+      return this.item.title ? "movie" : "tv";
+    }
   },
 
   methods: {
-    openModal () {
+    openModal() {
       this.modalVisible = true;
     },
 
-    closeModal () {
+    closeModal() {
       this.modalVisible = false;
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" module>
-@import '~/assets/css/utilities/_variables.scss';
+@import "~/assets/css/utilities/_variables.scss";
 
 .hero {
   display: flex;
@@ -184,11 +219,21 @@ export default {
     bottom: 0;
     left: 0;
     display: block;
-    content: '';
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 100%);
+    content: "";
+    background-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.1) 50%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
 
     @media (min-width: $breakpoint-medium) {
-      background-image: linear-gradient(to right, #000 0, transparent 50%, transparent 100%);
+      background-image: linear-gradient(
+        to right,
+        #000 0,
+        transparent 50%,
+        transparent 100%
+      );
     }
   }
 
@@ -299,7 +344,7 @@ export default {
   width: 8.5rem;
   height: 1.4rem;
   margin-right: 1rem;
-  background-image: url('~assets/images/stars.png');
+  background-image: url("~assets/images/stars.png");
   background-repeat: no-repeat;
   background-size: auto 100%;
 
@@ -310,7 +355,7 @@ export default {
 
   > div {
     height: 100%;
-    background-image: url('~assets/images/stars-filled.png');
+    background-image: url("~assets/images/stars-filled.png");
     background-repeat: no-repeat;
     background-size: auto 100%;
   }
@@ -356,7 +401,8 @@ export default {
 <style lang="scss">
 .hero-enter-active,
 .hero-leave-active {
-  transition: transform .75s cubic-bezier(.4, .25, .3, 1), opacity .3s cubic-bezier(.4, .25, .3, 1);
+  transition: transform 0.75s cubic-bezier(0.4, 0.25, 0.3, 1),
+    opacity 0.3s cubic-bezier(0.4, 0.25, 0.3, 1);
 }
 
 .hero-enter,

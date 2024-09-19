@@ -20,7 +20,7 @@ module.exports = {
   modules: ["@nuxtjs/dotenv", "@nuxtjs/pwa", "@nuxtjs/sitemap"],
 
   sitemap: {
-    hostname: "https://hdhub4u.vercel.app/"
+    hostname: "https://hdhub4u.netlify.app/"
   },
   plugins: [
     "~/plugins/lazyload.js",
@@ -58,7 +58,7 @@ module.exports = {
       {
         hid: "og:url",
         property: "og:url",
-        content: "https://hdhub4u.vercel.app/"
+        content: "https://hdhub4u.netlify.app/"
       },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "Movies" },
@@ -78,6 +78,14 @@ module.exports = {
       {
         rel: "stylesheet",
         href: "//fonts.googleapis.com/css?family=Roboto:300,400,500"
+      }
+    ],
+    script: [
+      {
+        src:
+          "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4957763471731342",
+        crossorigin: "anonymous",
+        async: true
       }
     ]
   },

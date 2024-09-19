@@ -4,7 +4,6 @@
       <div :class="$style.backdrop">
         <div>
           <button
-            v-if="trailer"
             :class="$style.play"
             type="button"
             aria-label="Play Now"
@@ -91,7 +90,6 @@
             </div>
 
             <button
-              v-if="trailer"
               class="button button--icon"
               :class="$style.trailer"
               type="button"
@@ -115,13 +113,7 @@
       </div>
     </div>
 
-    <Modal
-      v-if="modalVisible"
-      :data="trailer"
-      type="iframe"
-      :item="item"
-      @close="closeModal"
-    />
+    <Modal v-if="modalVisible" type="iframe" :item="item" @close="closeModal" />
   </div>
 </template>
 

@@ -42,6 +42,10 @@ module.exports = {
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
+        name: "google-site-verification",
+        content: "EzZhxwmLkUC9yy1b2UVEcAq8SqR-jOccPI3_2q1fTRU"
+      },
+      {
         hid: "description",
         name: "description",
         content: "Browse Movies, TV Shows and People"

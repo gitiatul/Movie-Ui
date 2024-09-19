@@ -2,8 +2,8 @@
   <nav :class="$style.nav">
     <div :class="$style.logoContainer">
       <svg
-        :class="$style.logoIcon"
         id="Capa_1"
+        :class="$style.logoIcon"
         enable-background="new 0 0 511.137 511.137"
         height="512"
         viewBox="0 0 511.137 511.137"
@@ -74,7 +74,7 @@
           y="46"
           font-family="Arial, sans-serif"
           font-weight="bold"
-          font-size="40"
+          font-size="35"
           fill="#1399FF"
         >
           HDHuB4u

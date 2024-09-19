@@ -83,7 +83,7 @@ module.exports = {
     script: [
       {
         src:
-          "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4957763471731342",
+          "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7885978337491533",
         crossorigin: "anonymous",
         async: true
       }

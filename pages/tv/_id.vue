@@ -1,27 +1,19 @@
 <template>
   <main class="main">
-    <TopNav
-      :title="metaTitle" />
+    <TopNav :title="metaTitle" />
 
-    <Hero
-      :item="item" />
+    <Hero :item="item" />
 
-    <MediaNav
-      :menu="menu"
-      @clicked="navClicked" />
+    <MediaNav :menu="menu" @clicked="navClicked" />
 
     <template v-if="activeMenu === 'overview'">
-      <TvInfo
-        :item="item" />
+      <TvInfo :item="item" />
 
-      <Credits
-        v-if="showCredits"
-        :people="item.credits.cast" />
+      <Credits v-if="showCredits" :people="item.credits.cast" />
     </template>
 
     <template v-if="activeMenu === 'episodes' && showEpisodes">
-      <Episodes
-        :number-of-seasons="item.number_of_seasons" />
+      <Episodes :number-of-seasons="item.number_of_seasons" />
     </template>
 
     <template v-if="activeMenu === 'photos' && showImages">
@@ -29,33 +21,36 @@
         v-if="item.images.backdrops.length"
         title="Backdrops"
         type="backdrop"
-        :images="item.images.backdrops" />
+        :images="item.images.backdrops"
+      />
 
       <Images
         v-if="item.images.posters.length"
         title="Posters"
         type="poster"
-        :images="item.images.posters" />
+        :images="item.images.posters"
+      />
     </template>
 
     <ListingCarousel
       v-if="recommended && recommended.results.length"
       title="More Like This"
-      :items="recommended" />
+      :items="recommended"
+    />
   </main>
 </template>
 
 <script>
-import { apiImgUrl, getTvShow, getTvShowRecommended } from '~/api';
-import { name, yearStart, yearEnd } from '~/mixins/Details';
-import TopNav from '~/components/global/TopNav';
-import Hero from '~/components/Hero';
-import MediaNav from '~/components/MediaNav';
-import TvInfo from '~/components/tv/TvInfo';
-import Images from '~/components/Images';
-import Credits from '~/components/Credits';
-import Episodes from '~/components/tv/Episodes';
-import ListingCarousel from '~/components/ListingCarousel';
+import { apiImgUrl, getTvShow, getTvShowRecommended } from "~/api";
+import { name, yearStart, yearEnd } from "~/mixins/Details";
+import TopNav from "~/components/global/TopNav";
+import Hero from "~/components/Hero";
+import MediaNav from "~/components/MediaNav";
+import TvInfo from "~/components/tv/TvInfo";
+import Images from "~/components/Images";
+import Credits from "~/components/Credits";
+import Episodes from "~/components/tv/Episodes";
+import ListingCarousel from "~/components/ListingCarousel";
 
 export default {
   components: {
@@ -66,42 +61,51 @@ export default {
     Images,
     Credits,
     Episodes,
-    ListingCarousel,
+    ListingCarousel
   },
 
-  mixins: [
-    name,
-    yearStart,
-    yearEnd,
-  ],
+  mixins: [name, yearStart, yearEnd],
 
-  head () {
+  head() {
     return {
       title: this.metaTitle,
       meta: [
-        { hid: 'og:title', property: 'og:title', content: this.metaTitle },
-        { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-        { hid: 'description', name: 'description', content: this.metaDescription },
-        { hid: 'og:image', property: 'og:image', content: this.metaImage },
-        { hid: 'og:url', property: 'og:url', content: `${process.env.FRONTEND_URL}${this.$route.path}` },
+        { hid: "og:title", property: "og:title", content: this.metaTitle },
+        {
+          hid: "og:description",
+          property: "og:description",
+          content: this.metaDescription
+        },
+        {
+          hid: "description",
+          name: "description",
+          content: this.metaDescription
+        },
+        { hid: "og:image", property: "og:image", content: this.metaImage },
+        {
+          hid: "og:url",
+          property: "og:url",
+          content: `${process.env.FRONTEND_URL}${this.$route.path}`
+        }
       ],
       bodyAttrs: {
-        class: 'topnav-active',
-      },
+        class: "topnav-active"
+      }
     };
   },
 
-  data () {
+  data() {
     return {
       menu: [],
-      activeMenu: 'overview',
-      recommended: null,
+      activeMenu: "overview",
+      recommended: null
     };
   },
 
   computed: {
-    metaTitle () {
-      if (this.item.status === 'Ended' && this.yearStart && this.yearEnd) {
+    metaTitle() {
+      this.$store.commit("search/setItem", this.item);
+      if (this.item.status === "Ended" && this.yearStart && this.yearEnd) {
         return `${this.name} (TV Series ${this.yearStart}-${this.yearEnd})`;
       } else if (this.yearStart) {
         return `${this.name} (TV Series ${this.yearStart}-)`;
@@ -110,93 +114,97 @@ export default {
       }
     },
 
-    metaDescription () {
+    metaDescription() {
       if (this.item.overview) {
         return this.truncate(this.item.overview, 200);
       } else {
-        return '';
+        return "";
       }
     },
 
-    metaImage () {
+    metaImage() {
       if (this.item.poster_path) {
         return `${apiImgUrl}/w500${this.item.poster_path}`;
       } else {
-        return '';
+        return "";
       }
     },
 
-    showCredits () {
+    showCredits() {
       const credits = this.item.credits;
       return credits && credits.cast && credits.cast.length;
     },
 
-    showEpisodes () {
+    showEpisodes() {
       return this.item.number_of_seasons;
     },
 
-    showVideos () {
+    showVideos() {
       const videos = this.item.videos;
       return videos && videos.results && videos.results.length;
     },
 
-    showImages () {
+    showImages() {
       const images = this.item.images;
-      return images && ((images.backdrops && images.backdrops.length) || (images.posters && images.posters.length));
-    },
+      return (
+        images &&
+        ((images.backdrops && images.backdrops.length) ||
+          (images.posters && images.posters.length))
+      );
+    }
   },
 
-  async asyncData ({ params, error }) {
+  async asyncData({ params, error }) {
     try {
       const item = await getTvShow(params.id);
 
       if (item.adult) {
-        error({ message: 'This tv show is not available' });
+        error({ message: "This tv show is not available" });
       } else {
         return { item };
       }
     } catch {
-      error({ message: 'Page not found' });
+      error({ message: "Page not found" });
     }
   },
 
-  created () {
+  created() {
     this.createMenu();
     this.initRecommended();
   },
 
   methods: {
-    truncate (string, length) {
+    truncate(string, length) {
       return this.$options.filters.truncate(string, length);
     },
 
-    createMenu () {
+    createMenu() {
       const menu = [];
 
       // overview
-      menu.push('Overview');
+      menu.push("Overview");
 
       // episodes
-      if (this.showEpisodes) menu.push('Episodes');
+      if (this.showEpisodes) menu.push("Episodes");
 
       // images
-      if (this.showImages) menu.push('Photos');
+      if (this.showImages) menu.push("Photos");
 
       this.menu = menu;
     },
 
-    navClicked (label) {
+    navClicked(label) {
       this.activeMenu = label;
     },
 
-    initRecommended () {
+    initRecommended() {
       // if recommended don't exist, retreive them
       if (this.recommended !== null) return;
 
       getTvShowRecommended(this.$route.params.id).then((response) => {
         this.recommended = response;
       });
-    },
-  },
+    }
+  }
 };
 </script>
